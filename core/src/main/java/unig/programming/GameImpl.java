@@ -18,7 +18,7 @@ public class GameImpl implements Game {
     private int number;
     private int guess;
     private int smallest;
-    private int biggest;
+    private int biggest=100;
     private int remainingGuesses;
     private boolean validNumberRange = true;
 
@@ -26,7 +26,7 @@ public class GameImpl implements Game {
     public GameImpl(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }
-
+    public GameImpl(){};
     // == public methods ==
     @Override
     public int getNumber() {
