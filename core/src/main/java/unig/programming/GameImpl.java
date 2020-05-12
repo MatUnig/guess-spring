@@ -3,9 +3,9 @@ package unig.programming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
-@Component("game")
 public class GameImpl implements Game {
 
     // ==  constants    ==
@@ -18,10 +18,28 @@ public class GameImpl implements Game {
     private int number;
     private int guess;
     private int smallest;
-    private int biggest=100;
+    private int biggest;
     private int remainingGuesses;
     private boolean validNumberRange = true;
 
+    // == init ==
+    @PostConstruct
+    @Override
+    public void reset() {
+        smallest = 0;
+        guess = 0;
+        remainingGuesses = guessCount;
+        biggest = numberGenerator.getMaxNumber();
+        number = numberGenerator.next();
+        log.debug("the number is {}", number);
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        log.info("in Game preDestroy()");
+
+
+    }
     // == constructors ==
     public GameImpl(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
@@ -59,16 +77,6 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public void reset() {
-        smallest =0;
-        guess = 0;
-        remainingGuesses = guessCount;
-        biggest= numberGenerator.getMaxNumber();
-        number = numberGenerator.next();
-        log.debug("Number is {},", number);
-    }
-
-    @Override
     public void check() {
         checkValidNumberRange();
         if (validNumberRange){
@@ -76,7 +84,7 @@ public class GameImpl implements Game {
                 biggest = guess -1;
             }
             if(guess<number) {
-                biggest = guess + 1;
+                smallest = guess + 1;
             }
         }
         remainingGuesses--;

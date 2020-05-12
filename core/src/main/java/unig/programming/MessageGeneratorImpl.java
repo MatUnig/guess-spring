@@ -36,12 +36,11 @@ public class MessageGeneratorImpl implements MessageGenerator {
 
     @Override
     public String getResultMessage() {
-
         if(game.isGameWon()){
             return "You guessed it. Number was: " + game.getNumber();
         }   else if (game.isGameLost()){
             return "You lost. Number was: "+ game.getNumber();
-        }   else if (game.isValidNumber()){
+        }   else if (!game.isValidNumber()){
             return "Invalid number range.";
         }   else if (game.getRemainingGuesses()==guessCount){
             return "What is your first guess?";

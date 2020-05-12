@@ -12,27 +12,32 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        log.info("Guess the number game");
+        log.info("Guess The Number Game");
 
-        //creating context(container)
-        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        //getting bean from context
-        NumberGenerator numberGenerator = context.getBean(NumberGenerator.class);
+        // create context (container)
+        ConfigurableApplicationContext context
+                = new AnnotationConfigApplicationContext(AppConfig.class);
 
+        // get number generator bean from context (container)
+        NumberGenerator numberGenerator
+                = context.getBean(NumberGenerator.class);
 
-        //using methods from beans
-
+        // call method next() to get a random number
         int number = numberGenerator.next();
-        MessageGenerator messageGenerator = context.getBean(MessageGenerator.class);
-        String generated = messageGenerator.getMainMessage();
-        String result = messageGenerator.getResultMessage();
 
-        log.info("Main message = {}", generated + result);
+
+        // log generated number
         log.info("number = {}", number);
 
-        //Game game = context.getBean(Game.class);
+        // get message generator bean from context (container)
+        MessageGenerator messageGenerator =
+                context.getBean(MessageGenerator.class);
+        log.info("getMainMessage= {}", messageGenerator.getMainMessage());
+        log.info("getResultMessage= {}", messageGenerator.getResultMessage());
 
-
+        // close context (container)
         context.close();
+
+
     }
 }
