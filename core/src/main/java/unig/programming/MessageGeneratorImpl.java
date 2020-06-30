@@ -7,24 +7,28 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component("messageGenerator")
+@Component
 public class MessageGeneratorImpl implements MessageGenerator {
 
-    // -- Constants
+    // == Constants
     private static final Logger log = LoggerFactory.getLogger(MessageGeneratorImpl.class);
 
-    // -- init
+    // == init
     @PostConstruct
     public void init(){
         log.info("game = {}", game);
     }
 
-    // -- Fields
-    @Autowired
-    private Game game;
-    private int guessCount=10;
+    // == Fields
+    private final Game game;
 
-    // -- Methods
+    // == Constructors
+
+    public MessageGeneratorImpl(Game game) {
+        this.game = game;
+    }
+
+    // == Methods
     @Override
     public String getMainMessage() {
         return "Number is between " +
@@ -42,7 +46,7 @@ public class MessageGeneratorImpl implements MessageGenerator {
             return "You lost. Number was: "+ game.getNumber();
         }   else if (!game.isValidNumber()){
             return "Invalid number range.";
-        }   else if (game.getRemainingGuesses()==guessCount){
+        }   else if (game.getGuessCount()==game.getRemainingGuesses()){
             return "What is your first guess?";
         }   else{
             String direction = "Lower!";
