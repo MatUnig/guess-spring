@@ -1,5 +1,10 @@
 unig\programming\GameImpl.class
+unig\programming\MinNumber.class
 unig\programming\NumberGenerator.class
+unig\programming\MaxNumber.class
+unig\programming\GuessCount.class
+unig\programming\config\GameConfig.class
 unig\programming\NumberGeneratorImpl.class
-unig\programming\Main.class
+unig\programming\MessageGeneratorImpl.class
 unig\programming\Game.class
+unig\programming\MessageGenerator.class
