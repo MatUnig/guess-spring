@@ -23,7 +23,6 @@ public class MessageGeneratorImpl implements MessageGenerator {
     private final Game game;
 
     // == Constructors
-
     public MessageGeneratorImpl(Game game) {
         this.game = game;
     }
